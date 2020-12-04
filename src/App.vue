@@ -30,6 +30,8 @@ export default {
     setSelected(card) {
       for (let key in card) {
         this.selectedCards[0][key] = card[key];
+        // console.log(key, card);
+        console.log(this.selectedCards);
 
         this.$forceUpdate();
       }

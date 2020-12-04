@@ -1,34 +1,27 @@
 <template>
   <div class="cardsContainer">
-      Cards...
-      <div class="columnCardContainer">
-          <CardsCol :setSelected="setSelected">
-
-          </CardsCol>
-          
-      </div>
+    Pick your cards...
+    <div class="columnCardContainer">
+      <CardsCol :setSelected="setSelected"> </CardsCol>
+    </div>
   </div>
 </template>
 
 
 
 <script>
-import CardsCol from './CardsCol.vue'
+import CardsCol from "./CardsCol.vue";
 export default {
-    props:[
-        "setSelected"
-    ],
-    components:{
-        CardsCol,
-    }
-}
+  props: ["setSelected"],
+  components: {
+    CardsCol,
+  },
+};
 </script>
 
 <style scoped>
-
-.cardsContainer{
-    width: 20%;
-    height: 100vh;
+.cardsContainer {
+  width: 20%;
+  height: 100vh;
 }
-
 </style>
