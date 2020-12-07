@@ -8,6 +8,8 @@
         @click="
           (e) => {
             e.target.classList.toggle('active');
+            e.target.classList.toggle('indivCard');
+            doStuffWhenClicked(e);
             setCard(card, suit);
           }
         "
@@ -20,15 +22,20 @@
 
 <script>
 export default {
-  props: ["setSelected"],
+  props: ["setSelected", "setHole"],
   data() {
     return {
       cards: "A23456789TJQK".split(""),
-      suits: "chds".split(""),
+      //   suits: "♣️♦️♥️♠️".split(""),
+      suits: "cdhs".split(""),
     };
   },
   methods: {
-    doStuffWhenClicked() {},
+    doStuffWhenClicked(e) {
+      console.log(e);
+      console.log(e.currentTarget.textContent);
+      this.setHole(e.currentTarget.textContent);
+    },
 
     setCard(card, suit) {
       // toggle disabled class on card item (make it dark)
@@ -40,8 +47,8 @@ export default {
       //   }
       this.setSelected({ card, suit });
 
-      let str = `${card}${suit}`;
-      alert(str);
+      //   let str = `${card}${suit}`;
+      //   alert(str);
     },
   },
 };
@@ -49,7 +56,16 @@ export default {
 
 <style scoped>
 .active {
-  background-color: black;
+  background-color: #999;
+  cursor: crosshair;
+
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 
 .indivCard {
@@ -60,15 +76,11 @@ export default {
   padding: 3px;
   border-right: 1px solid black;
   border-left: 1px solid black;
-}
-
-.cards {
-  /* border: 1px dashed black; */
+  cursor: cell;
 }
 
 .indivCard:hover {
   border: 1px solid black;
-  cursor: pointer;
 }
 .indivCards {
   background-color: aliceblue;

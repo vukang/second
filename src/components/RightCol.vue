@@ -8,12 +8,15 @@
     <p>
       {{ ~~(Math.random() * 100) }}
     </p>
+    <p v-for="(holeCard, index) in getHole" :key="index" id="player1">
+      {{ holeCard }}
+    </p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["selected"],
+  props: ["selected", "getHole"],
 };
 </script>
 
@@ -21,5 +24,9 @@ export default {
 .mainDisplay {
   width: 80%;
   height: 100vh;
+}
+
+#player1 {
+  display: inline;
 }
 </style>
