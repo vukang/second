@@ -38,13 +38,6 @@ export default {
     },
 
     setCard(card, suit) {
-      // toggle disabled class on card item (make it dark)
-
-      // toggle object to write in
-      // if active then set class
-      //   if (suit == s) {
-      //     console.log("hi bitches");
-      //   }
       this.setSelected({ card, suit });
 
       //   let str = `${card}${suit}`;
