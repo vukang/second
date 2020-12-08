@@ -73,11 +73,28 @@ export default {
   cursor: cell;
 }
 
+.indivCard:first-child {
+  background-color: rgba(36, 216, 39, 0.329);
+  color: green;
+}
+
+.indivCard:nth-child(2) {
+  background-color: rgba(15, 98, 198, 0.329);
+  color: blue;
+}
+.indivCard:nth-child(3) {
+  background-color: rgba(173, 21, 21, 0.329);
+  color: indigo;
+}
+.indivCard:last-child {
+  background-color: rgba(127, 127, 127, 0.329);
+  color: black;
+}
+
 .indivCard:hover {
   border: 1px solid black;
 }
 .indivCards {
-  background-color: aliceblue;
   display: border-box;
 }
 </style>

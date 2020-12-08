@@ -1,7 +1,9 @@
 <template>
   <div class="villainContainer">
     <h3>Villain #1</h3>
-    {{ villainC }}
+    <div class="villCards" v-for="(vC, index) in villainC" :key="index">
+      {{ vC }}
+    </div>
     <div class="results">Win: {{ resV }}</div>
   </div>
 </template>
@@ -22,7 +24,11 @@ export default {
 <style scoped>
 .villainContainer {
   width: 200px;
-  height: 100px;
+  height: 120px;
   background-color: azure;
+}
+
+.villCards {
+  display: inline;
 }
 </style>
