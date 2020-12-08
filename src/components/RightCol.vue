@@ -1,22 +1,39 @@
 <template>
   <div class="mainDisplay">
-    Main...
-
-    <p v-for="(card, index) in selected" :key="index">
-      {{ card }}
-    </p>
-    <p>
-      {{ ~~(Math.random() * 100) }}
-    </p>
-    <p v-for="(holeCard, index) in getHole" :key="index" id="player1">
-      {{ holeCard }}
-    </p>
+    <Board :community="dataCommunityCards"></Board>
+    <PlayerPanel
+      :data="dataHoleC"
+      :sendFunktion="sendFunktion"
+      :results="results"
+    ></PlayerPanel>
+    <Villain-panel :villainC="villainC"></Villain-panel>
   </div>
 </template>
 
 <script>
+import Board from "./Board.vue";
+import PlayerPanel from "./PlayerPanel.vue";
+import VillainPanel from "./VillainPanel.vue";
+
 export default {
-  props: ["selected", "getHole"],
+  props: [
+    "selected",
+    "getHole",
+    "dataHoleC",
+    "dataCommunityCards",
+    "sendFunktion",
+    "results",
+    "villainC",
+  ],
+  components: {
+    Board,
+    PlayerPanel,
+    VillainPanel,
+  },
+  data() {
+    return {};
+  },
+  computed: {},
 };
 </script>
 
@@ -24,9 +41,5 @@ export default {
 .mainDisplay {
   width: 80%;
   height: 100vh;
-}
-
-#player1 {
-  display: inline;
 }
 </style>

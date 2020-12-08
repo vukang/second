@@ -26,8 +26,8 @@ export default {
   data() {
     return {
       cards: "A23456789TJQK".split(""),
-      //   suits: "♣️♦️♥️♠️".split(""),
-      suits: "cdhs".split(""),
+      suits: ["♣️", "♦️", "♥️", "♠️"],
+      // suits: "cdhs".split(""),
     };
   },
   methods: {
@@ -35,6 +35,7 @@ export default {
       console.log(e);
       console.log(e.currentTarget.textContent);
       this.setHole(e.currentTarget.textContent);
+      // console.log(this.communityCards);
     },
 
     setCard(card, suit) {
@@ -77,5 +78,6 @@ export default {
 }
 .indivCards {
   background-color: aliceblue;
+  display: border-box;
 }
 </style>
