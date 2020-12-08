@@ -5,7 +5,7 @@
     <div id="results" v-for="(dat, index) in data" :key="index">
       {{ dat }}
     </div>
-    <div class="stats">Win percentage: {{ res }}</div>
+    <div class="stats">Win percentage: {{ resHero }}</div>
     <button @click="sendFunktion">Calculate (send to node)</button>
   </div>
 </template>
@@ -15,7 +15,8 @@ export default {
   props: ["data", "sendFunktion", "results"],
   data() {
     return {
-      res: this.results,
+      resHero: this.results[0].slice(25),
+      resVil: this.results[1],
     };
   },
 };

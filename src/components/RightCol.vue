@@ -1,12 +1,16 @@
 <template>
   <div class="mainDisplay">
+    <div id="instr">
+      Instructions: 1) Pick Hero cards 2) Pick villain cards 3) Pick at least 3
+      board cards
+    </div>
     <Board :community="dataCommunityCards"></Board>
     <PlayerPanel
       :data="dataHoleC"
       :sendFunktion="sendFunktion"
       :results="results"
     ></PlayerPanel>
-    <Villain-panel :villainC="villainC"></Villain-panel>
+    <Villain-panel :villainC="villainC" :results="results"></Villain-panel>
   </div>
 </template>
 
@@ -41,5 +45,13 @@ export default {
 .mainDisplay {
   width: 80%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-items: center; */
+}
+
+#instr {
+  border-bottom: 2px dotted black;
 }
 </style>

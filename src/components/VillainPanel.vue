@@ -2,14 +2,17 @@
   <div class="villainContainer">
     <h3>Villain #1</h3>
     {{ villainC }}
+    <div class="results">Win: {{ resV }}</div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["villainC"],
+  props: ["villainC", "results"],
   data() {
-    return {};
+    return {
+      resV: this.results[1].slice(25),
+    };
   },
   methods: {},
   computed: {},

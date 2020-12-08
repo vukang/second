@@ -46,6 +46,7 @@ export default {
         body: JSON.stringify({
           selectedCards: this.selectedCards,
           holeCards: this.holeCards,
+          villainCards: this.villainCards,
           communityCards: this.communityCards,
         }),
       });

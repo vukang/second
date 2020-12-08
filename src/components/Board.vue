@@ -40,8 +40,9 @@ export default {
 #cardsContainer {
   width: 250px;
   height: 100px;
-  background-color: seagreen;
+  background-color: rgb(97, 241, 159);
   border-radius: 100px;
   align-self: center;
+  padding-top: 20px;
 }
 </style>
