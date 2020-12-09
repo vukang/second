@@ -7,34 +7,76 @@
         class="indivCard"
         @click="
           (e) => {
-            e.target.classList.toggle('active');
-            e.target.classList.toggle('indivCard');
-            doStuffWhenClicked(e);
-            setCard(card, suit);
+           // e.target.classList.toggle('active');
+           // e.target.classList.toggle('indivCard');
+            // doStuffWhenClicked(card+suit);
+            // setCard(card, suit);
           }
         "
       >
         {{ card + "" + suit }}
+
+      <div class="target" @click="(e) => {
+        e.currentTarget.parentElement.classList.toggle('active--hero');
+        e.currentTarget.parentElement.classList.toggle('indivCard');
+        
+        settingH(e, card+suit)
+        }">
+        H
+      </div>
+
+      <div class="target" @click="(e) => {
+        e.currentTarget.parentElement.classList.toggle('active--comm');
+        e.currentTarget.parentElement.classList.toggle('indivCard');
+        
+        settingC(card+suit)}">
+        C
+      </div>
+
+      <div class="target" @click="(e) =>  {
+        e.currentTarget.parentElement.classList.toggle('active--villain');
+        e.currentTarget.parentElement.classList.toggle('indivCard');
+        
+        settingV(card+suit)}">
+        V
+      </div>
+
       </span>
     </div>
+    <button @click="reloadPage()" >Reset all</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["setSelected", "setHole"],
+  props: ["setSelected", "setHole", "setH", "setC", "setV", 'resetAll'],
   data() {
     return {
       cards: "A23456789TJQK".split(""),
       suits: ["♣️", "♦️", "♥️", "♠️"],
-      // suits: "cdhs".split(""),
     };
   },
   methods: {
-    doStuffWhenClicked(e) {
-      console.log(e);
-      console.log(e.currentTarget.textContent);
-      this.setHole(e.currentTarget.textContent);
+    reloadPage(){
+      this.resetAll();
+    },
+
+    settingH(e, karte){
+      this.setH(karte)
+    },
+
+    settingC(karte){
+      this.setC(karte)
+    },
+
+    settingV(karte){
+      this.setV(karte)
+    },
+
+    doStuffWhenClicked(karte) {
+
+
+      this.setHole(karte);
       // console.log(this.communityCards);
     },
 
@@ -49,6 +91,49 @@ export default {
 </script>
 
 <style scoped>
+
+.active--villain {
+  background-color: red;
+  cursor: crosshair;
+  border: 1px solid black;
+
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.active--hero {
+  background-color: darkkhaki;
+  cursor: crosshair;
+  border: 1px solid black;
+
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.active--comm {
+  background-color: #rgb(97, 241, 159);
+  cursor: crosshair;
+  border: 1px solid black;
+
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
 .active {
   background-color: #999;
   cursor: crosshair;
@@ -96,5 +181,33 @@ export default {
 }
 .indivCards {
   display: border-box;
+}
+
+.target{
+  display: none;
+  position: absolute;;
+  width: 10px;
+  height: 10px;
+  font-size: 8px;
+  right: 0px;
+
+  bottom: 0px;
+}
+
+.target:hover {
+  background-color: white;
+  cursor: crosshair;
+}
+
+.indivCard:hover .target{
+  display: block
+}
+
+.target:nth-of-type(2){
+  right: 10px;
+}
+
+.target:nth-of-type(3){
+  right: 20px;
 }
 </style>

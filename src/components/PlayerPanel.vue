@@ -1,6 +1,6 @@
 <template>
   <div id="player">
-    <h4>Hero Panel</h4>
+   <div class="title"> <h4><div id="rndBtn" @click="rndH()">🎲</div> Hero Panel <div id="resBtn" @click="delH()">❌</div></h4>  </div>
     <!-- {{ data }} -->
     <div id="results" v-for="(dat, index) in data" :key="index">
       {{ dat }}
@@ -19,10 +19,40 @@ export default {
       resVil: this.results[1],
     };
   },
+  methods: {
+    delH() {
+      console.log("delete H cards in data array!")
+    },
+    rndH(){
+      console.log("rnd cards 4 hero")
+    }
+  }
 };
 </script>
 
 <style scoped>
+
+.title {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#rndBtn {
+  display: inline;
+  cursor: pointer;
+}
+
+#resBtn {
+  display: inline;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
 #results {
   display: inline-block;
 }

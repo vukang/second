@@ -1,6 +1,6 @@
 <template>
   <div class="villainContainer">
-    <h3>Villain #1</h3>
+    <h4><div id="rndBtn" @click="rndV()">🎲</div> Villain #1 <div id="resBtn" @click="delH()">❌</div></h4>
     <div class="villCards" v-for="(vC, index) in villainC" :key="index">
       {{ vC }}
     </div>
@@ -16,8 +16,15 @@ export default {
       resV: this.results[1].slice(25),
     };
   },
-  methods: {},
-  computed: {},
+  methods: {
+    delH() {
+      console.log("delete V cards in data array!")
+    },
+    rndV(){
+      console.log("rnd c 4 vill")
+    }
+  }
+
 };
 </script>
 
@@ -30,5 +37,17 @@ export default {
 
 .villCards {
   display: inline;
+}
+
+#rndBtn {
+  display: inline;
+  cursor: pointer;
+}
+
+#resBtn {
+  display: inline;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div id="layout">
-      <LeftCol :setSelected="setSelected" :setHole="setHole" />
+      <LeftCol :setSelected="setSelected" :setHole="setHole" 
+      :setH="setHoleCards" :setC="setCommunityCards" :setV="setVillainCards" :resetAll="resetAll"
+      />
       <RightCol
         :sendFunktion="sendData"
         :selected="getSelected"
@@ -34,6 +36,10 @@ export default {
       villainCards: [],
       communityCards: [],
       returnedData: [],
+
+      heroC: [],
+      villC: [],
+      boardC: [],
     };
   },
   methods: {
@@ -57,6 +63,55 @@ export default {
           console.log(data);
           return (this.returnedData = data);
         });
+    },
+
+    resetAll() {
+      this.selectedCards= [{}, {}];
+      this.holeCards= [];
+      this.villainCards= [];
+      this.communityCards = [];
+
+
+      this.heroC= [];
+      this.villC= [];
+      this.boardC= [];
+
+      window.location.reload()
+    },
+
+    setHoleCards(karte) {
+      console.log(karte)
+
+      if (!this.holeCards.includes(karte) &&  this.holeCards.length < 2 && !this.villainCards.includes(karte) && !this.communityCards.includes(karte)) {
+          console.log('in here...H')
+          this.heroC.push(karte);
+          this.holeCards.push(karte);
+      }
+
+      if (this.holeCards.length >= 2) {
+        console.log(this.holeCards);
+        console.log("Hero cant have more cards...")
+        } 
+    },
+
+    setCommunityCards(karte) {
+      console.log(karte)
+
+      if (!this.communityCards.includes(karte) && this.communityCards.length < 5 && !this.holeCards.includes(karte) && !this.villainCards.includes(karte)) {
+        console.log('in here...C')
+        this.boardC.push(karte);
+        this.communityCards.push(karte);
+      }
+    },
+
+    setVillainCards(karte) {
+      console.log(karte)
+
+      if (!this.villainCards.includes(karte) && this.villainCards.length < 2 && !this.holeCards.includes(karte) && !this.communityCards.includes(karte)){
+        console.log('in here...V')
+        this.villC.push(karte);
+        this.villainCards.push(karte);
+      }
     },
 
     setSelected(card) {
@@ -87,6 +142,28 @@ export default {
       }
     },
 
+     setHole(textContent) {
+      textContent = textContent.trim();
+
+      if (this.holeCards.length >= 2) {
+        console.log(this.holeCards);
+        console.log("adding to villain's cards here...");
+        this.setVillainHole(textContent);
+      }
+
+      if (!this.holeCards.includes(textContent) && this.holeCards.length <= 1) {
+        console.log("push to arr");
+        this.holeCards.push(textContent);
+      } else if (this.holeCards.length <= 1) {
+        console.log("pop if 1");
+        this.holeCards.pop();
+      } else {
+        let filtered = this.holeCards.filter((el) => el != textContent);
+        console.log(filtered);
+        this.holeCards = filtered;
+      }
+    },
+
     pushToCommunityCards(textContent) {
       console.log(this.communityCards);
 
@@ -113,28 +190,6 @@ export default {
         !this.communityCards.includes(textContent)
       ) {
         this.communityCards.push(textContent);
-      }
-    },
-
-    setHole(textContent) {
-      textContent = textContent.trim();
-
-      if (this.holeCards.length >= 2) {
-        console.log(this.holeCards);
-        console.log("adding to villain's cards here...");
-        this.setVillainHole(textContent);
-      }
-
-      if (!this.holeCards.includes(textContent) && this.holeCards.length <= 1) {
-        console.log("push to arr");
-        this.holeCards.push(textContent);
-      } else if (this.holeCards.length <= 1) {
-        console.log("pop if 1");
-        this.holeCards.pop();
-      } else {
-        let filtered = this.holeCards.filter((el) => el != textContent);
-        console.log(filtered);
-        this.holeCards = filtered;
       }
     },
 
