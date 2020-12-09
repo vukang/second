@@ -50,7 +50,6 @@ export default {
           communityCards: this.communityCards,
         }),
       });
-      console.log(meinRequest);
 
       fetch(meinRequest)
         .then((response) => response.json())

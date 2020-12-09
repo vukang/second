@@ -4,13 +4,14 @@
       Instructions: 1) Pick Hero cards 2) Pick villain cards 3) Pick at least 3
       board cards
     </div>
+    <Villain-panel :villainC="villainC" :results="results"></Villain-panel>
     <Board :community="dataCommunityCards"></Board>
     <PlayerPanel
       :data="dataHoleC"
       :sendFunktion="sendFunktion"
       :results="results"
     ></PlayerPanel>
-    <Villain-panel :villainC="villainC" :results="results"></Villain-panel>
+    
   </div>
 </template>
 
