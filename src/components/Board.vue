@@ -8,7 +8,7 @@
         :key="index"
         id="indivBoardCards"
       >
-        <span id="eachCard"> {{ cCard }}</span>
+        <span id="eachCard"> {{ cCard.value }}</span>
       </div>
     </div>
   </div>

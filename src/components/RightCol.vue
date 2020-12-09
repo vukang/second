@@ -7,7 +7,7 @@
     <Villain-panel :villainC="villainC" :results="results"></Villain-panel>
     <Board :community="dataCommunityCards"></Board>
     <PlayerPanel
-      :data="dataHoleC"
+      :data="heroC"
       :sendFunktion="sendFunktion"
       :results="results"
     ></PlayerPanel>
@@ -24,7 +24,7 @@ export default {
   props: [
     "selected",
     "getHole",
-    "dataHoleC",
+    "heroC",
     "dataCommunityCards",
     "sendFunktion",
     "results",

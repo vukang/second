@@ -1,26 +1,15 @@
 <template>
   <div class="indivCards">
-    <div class="cards" v-for="(card, index) in cards" :key="index">
-      <span
-        v-for="(suit, index) in suits"
-        :key="index"
-        class="indivCard"
-        @click="
-          (e) => {
-           // e.target.classList.toggle('active');
-           // e.target.classList.toggle('indivCard');
-            // doStuffWhenClicked(card+suit);
-            // setCard(card, suit);
-          }
-        "
-      >
-        {{ card + "" + suit }}
+    <div class="cards" v-for="(card, index) in kartenstapel" :key="index">
+      <span class="indivCard">
+        {{ card.value }}
 
       <div class="target" @click="(e) => {
         e.currentTarget.parentElement.classList.toggle('active--hero');
         e.currentTarget.parentElement.classList.toggle('indivCard');
         
-        settingH(e, card+suit)
+        // settingH(e, card+suit)
+        kopiereKarte(card, 'heroC', 2)
         }">
         H
       </div>
@@ -29,7 +18,8 @@
         e.currentTarget.parentElement.classList.toggle('active--comm');
         e.currentTarget.parentElement.classList.toggle('indivCard');
         
-        settingC(card+suit)}">
+        //settingC(card+suit)
+        kopiereKarte(card, 'boardC', 5)}">
         C
       </div>
 
@@ -37,7 +27,9 @@
         e.currentTarget.parentElement.classList.toggle('active--villain');
         e.currentTarget.parentElement.classList.toggle('indivCard');
         
-        settingV(card+suit)}">
+        //settingV(card+suit)}
+        kopiereKarte(card, 'villC', 2)}"
+        >
         V
       </div>
 
@@ -49,11 +41,13 @@
 
 <script>
 export default {
-  props: ["setSelected", "setHole", "setH", "setC", "setV", 'resetAll'],
+  props: ["setSelected", "setHole", "setH", "setC", "setV", 'resetAll', 'kopiereKarte', "kartenstapel", 'boardC'],
   data() {
     return {
       cards: "A23456789TJQK".split(""),
       suits: ["♣️", "♦️", "♥️", "♠️"],
+
+
     };
   },
   methods: {
@@ -99,9 +93,9 @@ export default {
 
   position: relative;
   display: inline-block;
-  width: 25px;
-  height: 25px;
-  padding: 3px;
+  width: 50px;
+  height: 35px;
+  padding: 0px;
   border-right: 1px solid black;
   border-left: 1px solid black;
 }
@@ -113,9 +107,9 @@ export default {
 
   position: relative;
   display: inline-block;
-  width: 25px;
-  height: 25px;
-  padding: 3px;
+  width: 50px;
+  height: 35px;
+  padding: 0px;
   border-right: 1px solid black;
   border-left: 1px solid black;
 }
@@ -127,9 +121,9 @@ export default {
 
   position: relative;
   display: inline-block;
-  width: 25px;
-  height: 25px;
-  padding: 3px;
+  width: 50px;
+  height: 35px;
+  padding: 0px;
   border-right: 1px solid black;
   border-left: 1px solid black;
 }
@@ -150,12 +144,29 @@ export default {
 .indivCard {
   position: relative;
   display: inline-block;
-  width: 25px;
-  height: 25px;
-  padding: 3px;
+  width: 50px;
+  height: 35px;
+  padding: 0px;
   border-right: 1px solid black;
   border-left: 1px solid black;
   cursor: cell;
+}
+
+.cards > span:nth-child(4n) {
+  background-color: rgba(36, 216, 39, 0.329);
+  color: green;
+}
+
+.cards:nth-child(4n) {
+  background-color: rgba(36, 216, 39, 0.329);
+  color: green;
+}
+
+
+
+.cards{
+  display: inline;
+  
 }
 
 .indivCard:first-child {
@@ -204,10 +215,10 @@ export default {
 }
 
 .target:nth-of-type(2){
-  right: 10px;
+  right: 20px;
 }
 
 .target:nth-of-type(3){
-  right: 20px;
+  right: 40px;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="villainContainer">
     <h4><div id="rndBtn" @click="rndV()">🎲</div> Villain #1 <div id="resBtn" @click="delH()">❌</div></h4>
     <div class="villCards" v-for="(vC, index) in villainC" :key="index">
-      {{ vC }}
+      {{ vC.value }}
     </div>
     <div class="results">Win: {{ resV }}</div>
   </div>
@@ -13,7 +13,7 @@ export default {
   props: ["villainC", "results"],
   data() {
     return {
-      resV: this.results[1].slice(25),
+      resV: this.results.length?this.results[1].slice(25) : false,
     };
   },
   methods: {

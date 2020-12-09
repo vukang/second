@@ -3,7 +3,7 @@
    <div class="title"> <h4><div id="rndBtn" @click="rndH()">🎲</div> Hero Panel <div id="resBtn" @click="delH()">❌</div></h4>  </div>
     <!-- {{ data }} -->
     <div id="results" v-for="(dat, index) in data" :key="index">
-      {{ dat }}
+      {{ dat.value }}
     </div>
     <div class="stats">Win percentage: {{ resHero }}</div>
     <button @click="sendFunktion">Calculate (send to node)</button>
@@ -15,8 +15,8 @@ export default {
   props: ["data", "sendFunktion", "results"],
   data() {
     return {
-      resHero: this.results[0].slice(25),
-      resVil: this.results[1],
+      resHero: this.results.length?this.results[0].slice(25):false,
+      resVil: this.results.length?this.results[1]:false,
     };
   },
   methods: {

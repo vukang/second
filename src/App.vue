@@ -1,21 +1,30 @@
 <template>
   <div id="app">
     <div id="layout">
-      <LeftCol :setSelected="setSelected" :setHole="setHole" 
-      :setH="setHoleCards" :setC="setCommunityCards" :setV="setVillainCards" :resetAll="resetAll"
+      <LeftCol 
+      :setSelected="setSelected" 
+      :setHole="setHole" 
+      :setH="setHoleCards"
+      :setC="setCommunityCards"
+      :setV="setVillainCards"
+      :resetAll="resetAll"
+      :kopiereKarte="kopiereKarte"
+      :kartenstapel="kartenstapel"
+      
       />
       <RightCol
         :sendFunktion="sendData"
         :selected="getSelected"
         :getHole="getHoleCards"
-        :dataHoleC="this.holeCards"
-        :dataCommunityCards="this.communityCards"
-        :villainC="this.villainCards"
+        :heroC="heroC"
+        :dataCommunityCards="this.boardC"
+        :villainC="this.villC"
         :results="this.returnedData"
         :key="Math.random()"
         :key2="Math.random()"
       />
     </div>
+    {{ aktuellerStapel }}
   </div>
 </template>
 
@@ -40,7 +49,9 @@ export default {
       heroC: [],
       villC: [],
       boardC: [],
-    };
+
+      kartenstapel: this.kartenstapelErzeugen(),
+    }
   },
   methods: {
     sendData() {
@@ -50,10 +61,10 @@ export default {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          selectedCards: this.selectedCards,
-          holeCards: this.holeCards,
-          villainCards: this.villainCards,
-          communityCards: this.communityCards,
+
+          heroCards: this.heroC,
+          villainCards: this.villC,
+          communityCards: this.boardC,
         }),
       });
 
@@ -63,6 +74,28 @@ export default {
           console.log(data);
           return (this.returnedData = data);
         });
+    },
+
+    kopiereKarte(karte, target, maxLength=2){
+      if (this[target].length < maxLength)
+        {this[target].push(karte)}
+
+      console.log(this[target])
+
+    },
+
+
+    kartenstapelErzeugen() {
+      let cards = 'A23456789TJQK'.split('');
+      let suits = ['♣️', '♦️', '♥️', '♠️'];
+      let kStapel = [];
+
+      cards.forEach((card) => {
+        suits.forEach((suit) => {
+        kStapel.push({ card, suit, value: card + suit });
+        });
+      });
+      return kStapel;
     },
 
     resetAll() {
@@ -142,7 +175,7 @@ export default {
       }
     },
 
-     setHole(textContent) {
+    setHole(textContent) {
       textContent = textContent.trim();
 
       if (this.holeCards.length >= 2) {
@@ -225,6 +258,9 @@ export default {
     getHoleCards() {
       return this.holeCards;
     },
+    aktuellerStapel : function() {
+      return this.kartenstapel.forEach((karte) => console.log(karte))
+    }
   },
 };
 </script>
