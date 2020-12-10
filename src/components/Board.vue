@@ -1,6 +1,10 @@
 <template>
   <div id="cardsContainer">
-    <h4><div id="rndBtn" @click="rndC()">🎲</div> Community Cards <div id="resBtn" @click="delC()">❌</div></h4>
+    <h4>
+      <div id="rndBtn" @click="rndC()">🎲</div>
+      Community Cards
+      <div id="resBtn" @click="delC()">❌</div>
+    </h4>
     <div class="wrapper">
       <!-- {{ community }} -->
       <div
@@ -22,14 +26,14 @@ export default {
   },
   methods: {
     delC() {
-      console.log("delete C cards in data array!")
-      this.resetB()
+      console.log("delete C cards in data array!");
+      this.resetB();
     },
-    rndC(){
-      console.log('randomize flop! w/ 3cards')
-      this.setBoard(this.rndCards(3))
-    }
-  }
+    rndC() {
+      console.log("randomize flop! w/ 3cards");
+      this.setBoard(this.rndCards(3));
+    },
+  },
 };
 </script>
 
@@ -53,9 +57,8 @@ export default {
   background-color: rgb(97, 241, 159);
   border-radius: 100px;
   align-self: center;
-  padding-top: 20px;
+  margin: 10px;
 }
-
 
 #resBtn {
   display: inline;
@@ -68,5 +71,4 @@ export default {
   display: inline;
   cursor: pointer;
 }
-
 </style>

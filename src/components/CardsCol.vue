@@ -1,35 +1,72 @@
 <template>
   <div class="indivCards">
     <div class="cards" v-for="(card, index) in kartenstapel" :key="index">
-      <span class="indivCard" @click="copyFreiSlot(card)" >
+      <span
+        :class="{
+          indivCard: true,
+          spades: card.suit.includes('♠️'),
+          clubs: card.suit.includes('♣️'),
+          hearts: card.suit.includes('♥️'),
+          diamonds: card.suit.includes('♦️'),
+          hero: heroC.includes(card),
+          board: boardC.includes(card),
+          vill: villC.includes(card),
+        }"
+        @click="copyFreiSlot(card)"
+      >
         {{ card.value }}
 
-      <div class="target" @click="(e) => {
-        kopiereKarte(card, 'heroC', 2)
-        }">
-        H
-      </div>
-
-      <div class="target" @click="(e) => {
-        kopiereKarte(card, 'boardC', 5)}">
-        C
-      </div>
-
-      <div class="target" @click="(e) =>  {
-        kopiereKarte(card, 'villC', 2)}"
+        <div
+          class="target"
+          @click="
+            (e) => {
+              kopiereKarte(card, 'heroC', 2);
+            }
+          "
         >
-        V
-      </div>
+          H
+        </div>
 
+        <div
+          class="target"
+          @click="
+            (e) => {
+              kopiereKarte(card, 'boardC', 5);
+            }
+          "
+        >
+          C
+        </div>
+
+        <div
+          class="target"
+          @click="
+            (e) => {
+              kopiereKarte(card, 'villC', 2);
+            }
+          "
+        >
+          V
+        </div>
       </span>
     </div>
-    <button @click="reloadPage()" >Reset all</button>
+    <button @click="reloadPage()">Reset all</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: [ "heroC", "villC", "boardC", "setSelected", "setHole", "setH", "setC", "setV", 'resetAll', 'kopiereKarte', "kartenstapel"],
+  props: [
+    "heroC",
+    "villC",
+    "boardC",
+    "setH",
+    "setC",
+    "setV",
+    "resetAll",
+    "kopiereKarte",
+    "kartenstapel",
+  ],
   data() {
     return {
       cards: "A23456789TJQK".split(""),
@@ -37,113 +74,46 @@ export default {
     };
   },
   methods: {
-    reloadPage(){
+    reloadPage() {
       this.resetAll();
     },
 
-    settingH(e, karte){
-      this.setH(karte)
+    settingH(karte) {
+      this.setH(karte);
     },
 
-    settingC(karte){
-      this.setC(karte)
+    settingC(karte) {
+      this.setC(karte);
     },
 
-    settingV(karte){
-      this.setV(karte)
+    settingV(karte) {
+      this.setV(karte);
     },
 
-    copyFreiSlot(card){
-      console.log(card.value)
-      console.log(this.heroC.length, "Hero#")
-      console.log(this.villC.length, "Vill#")
-      console.log(this.boardC.length, "Board#")
+    copyFreiSlot(card) {
+      console.log(card.value);
+      console.log(this.heroC.length, "Hero#");
+      console.log(this.villC.length, "Vill#");
+      console.log(this.boardC.length, "Board#");
 
-      /* 
-        Push to correct player = With the lowest # of cards
-      */
+      if (this.heroC.length == 2 && this.villC.length == 2) {
+        // push to boardC
+        this.kopiereKarte(card, "boardC", 5);
+      }
 
-     if ( this.heroC.length == 2 && this.villC.length == 2) {
-       // push to boardC
-       this.kopiereKarte(card, "boardC", 5)
-     }
+      if (this.heroC.length < 2) {
+        this.kopiereKarte(card, "heroC", 2);
+      }
 
-     if (this.heroC.length < 2) {
-       this.kopiereKarte(card, "heroC", 2)
-     }
-
-     if (this.villC.length < 2) {
-       this.kopiereKarte(card, "villC", 2)
-     }
-    },
-
-    doStuffWhenClicked(karte) {
-
-
-      this.setHole(karte);
-      // console.log(this.communityCards);
+      if (this.villC.length < 2) {
+        this.kopiereKarte(card, "villC", 2);
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-
-.active--villain {
-  background-color: red;
-  cursor: crosshair;
-  border: 1px solid black;
-
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 35px;
-  padding: 0px;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.active--hero {
-  background-color: darkkhaki;
-  cursor: crosshair;
-  border: 1px solid black;
-
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 35px;
-  padding: 0px;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.active--comm {
-  background-color: #rgb(97, 241, 159);
-  cursor: crosshair;
-  border: 1px solid black;
-
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 35px;
-  padding: 0px;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.active {
-  background-color: #999;
-  cursor: crosshair;
-
-  position: relative;
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  padding: 3px;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-}
-
 .indivCard {
   position: relative;
   display: inline-block;
@@ -155,51 +125,50 @@ export default {
   cursor: cell;
 }
 
-.cards > span:nth-child(4n) {
-  background-color: rgba(36, 216, 39, 0.329);
-  color: green;
-}
-
-.cards:nth-child(4n) {
-  background-color: rgba(36, 216, 39, 0.329);
-  color: green;
-}
-
-
-
-.cards{
+.cards {
   display: inline;
-  
 }
 
-.indivCard:first-child {
-  background-color: rgba(36, 216, 39, 0.329);
-  color: green;
+.indivCard.hero {
+  background-color: darkkhaki !important;
+}
+.indivCard.board {
+  background-color: yellow !important;
+}
+.indivCard.vill {
+  background-color: azure !important;
 }
 
-.indivCard:nth-child(2) {
-  background-color: rgba(15, 98, 198, 0.329);
-  color: blue;
+.indivCard.spades {
+  background-color: rgba(34, 32, 32, 0.459);
+  color: black;
 }
-.indivCard:nth-child(3) {
-  background-color: rgba(173, 21, 21, 0.329);
-  color: indigo;
+.indivCard.clubs {
+  background-color: rgba(97, 201, 97, 0.582);
+  color: black;
 }
-.indivCard:last-child {
-  background-color: rgba(127, 127, 127, 0.329);
+.indivCard.hearts {
+  background-color: rgba(245, 73, 73, 0.644);
+  color: black;
+}
+.indivCard.diamonds {
+  background-color: rgba(75, 75, 252, 0.559);
   color: black;
 }
 
 .indivCard:hover {
   border: 1px solid black;
+  background-color: rgba(128, 128, 128, 0.23);
 }
 .indivCards {
   display: border-box;
 }
 
-.target{
+/* target = small span below inside card */
+
+.target {
   display: none;
-  position: absolute;;
+  position: absolute;
   width: 10px;
   height: 10px;
   font-size: 8px;
@@ -213,15 +182,15 @@ export default {
   cursor: crosshair;
 }
 
-.indivCard:hover .target{
-  display: block
+.indivCard:hover .target {
+  display: block;
 }
 
-.target:nth-of-type(2){
+.target:nth-of-type(2) {
   right: 20px;
 }
 
-.target:nth-of-type(3){
+.target:nth-of-type(3) {
   right: 40px;
 }
 </style>

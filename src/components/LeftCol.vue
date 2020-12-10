@@ -2,18 +2,18 @@
   <div class="cardsContainer">
     Pick your cards...
     <div class="columnCardContainer">
-      <CardsCol 
-      :heroC="heroC"
-      :villC="villC"
-      :boardC="boardC"
-      :setH="setH"
-      :setC="setC" 
-      :setV="setV" 
-      :resetAll="resetAll" 
-      :kopiereKarte="kopiereKarte" 
-      :kartenstapel="kartenstapel"
+      <CardsCol
+        :heroC="heroC"
+        :villC="villC"
+        :boardC="boardC"
+        :setH="setH"
+        :setC="setC"
+        :setV="setV"
+        :resetAll="resetAll"
+        :kopiereKarte="kopiereKarte"
+        :kartenstapel="kartenstapel"
       >
-       </CardsCol>
+      </CardsCol>
     </div>
   </div>
 </template>
@@ -23,7 +23,17 @@
 <script>
 import CardsCol from "./CardsCol.vue";
 export default {
-  props: [ "heroC" ,"villC" ,"boardC" ,"setH", "setC", "setV", "resetAll", 'kopiereKarte', 'kartenstapel'],
+  props: [
+    "heroC",
+    "villC",
+    "boardC",
+    "setH",
+    "setC",
+    "setV",
+    "resetAll",
+    "kopiereKarte",
+    "kartenstapel",
+  ],
   components: {
     CardsCol,
   },

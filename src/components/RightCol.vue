@@ -1,11 +1,22 @@
 <template>
   <div class="mainDisplay">
     <div id="instr">
-      Instructions: 1) Pick Hero cards 2) Pick villain cards 3) Pick at least 3
-      board cards
+      Instructions: Hero & Vill need EXACTLY 2 cards | Board needs min. 3 board
+      cards
     </div>
-    <Villain-panel :villainC="villainC" :results="results" :resetV="resetV" :setVill="setVill" :rndCards="genRndNSplice"></Villain-panel>
-    <Board :community="dataCommunityCards" :resetB="resetB" :setBoard="setBoard" :rndCards="genRndNSplice"></Board>
+    <Villain-panel
+      :villainC="villainC"
+      :results="results"
+      :resetV="resetV"
+      :setVill="setVill"
+      :rndCards="genRndNSplice"
+    ></Villain-panel>
+    <Board
+      :community="dataCommunityCards"
+      :resetB="resetB"
+      :setBoard="setBoard"
+      :rndCards="genRndNSplice"
+    ></Board>
     <PlayerPanel
       :data="heroC"
       :sendFunktion="sendFunktion"
@@ -14,7 +25,6 @@
       :rndCards="genRndNSplice"
       :setHero="setHero"
     ></PlayerPanel>
-    
   </div>
 </template>
 
@@ -36,7 +46,7 @@ export default {
     "genRndNSplice",
     "setHero",
     "setVill",
-    "setBoard"
+    "setBoard",
   ],
   components: {
     Board,
@@ -62,5 +72,6 @@ export default {
 
 #instr {
   border-bottom: 2px dotted black;
+  padding-bottom: 2px;
 }
 </style>
