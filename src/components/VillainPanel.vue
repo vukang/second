@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ["villainC", "results"],
+  props: ["villainC", "results", "resetV", "setVill", "rndCards"],
   data() {
     return {
       resV: this.results.length?this.results[1].slice(25) : false,
@@ -19,9 +19,11 @@ export default {
   methods: {
     delH() {
       console.log("delete V cards in data array!")
+      this.resetV()
     },
     rndV(){
-      console.log("rnd c 4 vill")
+      console.log("2 rnd c 4 vill")
+      this.setVill(this.rndCards(2))
     }
   }
 

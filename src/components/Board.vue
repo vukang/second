@@ -16,16 +16,18 @@
 
 <script>
 export default {
-  props: ["community"],
+  props: ["community", "resetB", "setBoard", "rndCards"],
   data() {
     return {};
   },
   methods: {
     delC() {
       console.log("delete C cards in data array!")
+      this.resetB()
     },
     rndC(){
       console.log('randomize flop! w/ 3cards')
+      this.setBoard(this.rndCards(3))
     }
   }
 };

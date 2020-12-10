@@ -5,29 +5,17 @@
         {{ card.value }}
 
       <div class="target" @click="(e) => {
-        e.currentTarget.parentElement.classList.toggle('active--hero');
-        e.currentTarget.parentElement.classList.toggle('indivCard');
-        
-        // settingH(e, card+suit)
         kopiereKarte(card, 'heroC', 2)
         }">
         H
       </div>
 
       <div class="target" @click="(e) => {
-        e.currentTarget.parentElement.classList.toggle('active--comm');
-        e.currentTarget.parentElement.classList.toggle('indivCard');
-        
-        //settingC(card+suit)
         kopiereKarte(card, 'boardC', 5)}">
         C
       </div>
 
       <div class="target" @click="(e) =>  {
-        e.currentTarget.parentElement.classList.toggle('active--villain');
-        e.currentTarget.parentElement.classList.toggle('indivCard');
-        
-        //settingV(card+suit)}
         kopiereKarte(card, 'villC', 2)}"
         >
         V
@@ -72,13 +60,6 @@ export default {
 
       this.setHole(karte);
       // console.log(this.communityCards);
-    },
-
-    setCard(card, suit) {
-      this.setSelected({ card, suit });
-
-      //   let str = `${card}${suit}`;
-      //   alert(str);
     },
   },
 };

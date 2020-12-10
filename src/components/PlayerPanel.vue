@@ -5,14 +5,14 @@
     <div id="results" v-for="(dat, index) in data" :key="index">
       {{ dat.value }}
     </div>
-    <div class="stats">Win percentage: {{ resHero }}</div>
+    <div class="stats">Win: {{ resHero }}</div>
     <button @click="sendFunktion">Calculate (send to node)</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["data", "sendFunktion", "results"],
+  props: ["data", "sendFunktion", "results", "resetH", "rndCards", "setHero"],
   data() {
     return {
       resHero: this.results.length?this.results[0].slice(25):false,
@@ -22,9 +22,11 @@ export default {
   methods: {
     delH() {
       console.log("delete H cards in data array!")
+      this.resetH()
     },
     rndH(){
-      console.log("rnd cards 4 hero")
+      console.log("2 rnd cards 4 hero")
+      this.setHero(this.rndCards(2))
     }
   }
 };

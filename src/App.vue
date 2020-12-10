@@ -2,8 +2,6 @@
   <div id="app">
     <div id="layout">
       <LeftCol 
-      :setSelected="setSelected" 
-      :setHole="setHole" 
       :setH="setHoleCards"
       :setC="setCommunityCards"
       :setV="setVillainCards"
@@ -14,17 +12,23 @@
       />
       <RightCol
         :sendFunktion="sendData"
-        :selected="getSelected"
-        :getHole="getHoleCards"
         :heroC="heroC"
-        :dataCommunityCards="this.boardC"
-        :villainC="this.villC"
-        :results="this.returnedData"
+        :dataCommunityCards="boardC"
+        :villainC="villC"
+        :results="returnedData"
+        :resetB="resetBoard"
+        :resetH="resetHero"
+        :resetV="resetVil"
+        :genRndNSplice="generateRandomAndSplice"
+        :setHero="setHero"
+        :setVill="setVill"
+        :setBoard="setBoard"
         :key="Math.random()"
         :key2="Math.random()"
       />
     </div>
-    {{ aktuellerStapel }}
+
+    <!-- {{ generateRandomAndSplice()  }} -->
   </div>
 </template>
 
@@ -40,10 +44,7 @@ export default {
   },
   data() {
     return {
-      selectedCards: [{}, {}],
-      holeCards: [],
-      villainCards: [],
-      communityCards: [],
+
       returnedData: [],
 
       heroC: [],
@@ -51,9 +52,12 @@ export default {
       boardC: [],
 
       kartenstapel: this.kartenstapelErzeugen(),
+      // bereinigterStapel: this.aktuellerStapel
+
     }
   },
   methods: {
+    // POST req
     sendData() {
       const meinRequest = new Request("http://localhost:9999/sendData", {
         method: "POST",
@@ -77,13 +81,18 @@ export default {
     },
 
     kopiereKarte(karte, target, maxLength=2){
-      if (this[target].length < maxLength)
+
+      if (this.heroC.includes(karte) || this.villC.includes(karte) || this.boardC.includes(karte) ) {
+        console.log(("DO NOT COPY CARD"))
+        throw Error("Card already in use!")
+      } else {
+        if (this[target].length < maxLength)
         {this[target].push(karte)}
+      }
+     
 
-      console.log(this[target])
-
+      
     },
-
 
     kartenstapelErzeugen() {
       let cards = 'A23456789TJQK'.split('');
@@ -98,6 +107,7 @@ export default {
       return kStapel;
     },
 
+    // reset&del methods
     resetAll() {
       this.selectedCards= [{}, {}];
       this.holeCards= [];
@@ -112,6 +122,19 @@ export default {
       window.location.reload()
     },
 
+    resetHero(){
+      this.heroC = [];
+    },
+
+    resetVil(){
+      this.villC = [];
+    },
+
+    resetBoard(){
+      this.boardC = [];
+    },
+
+    // alte methoden /////////////
     setHoleCards(karte) {
       console.log(karte)
 
@@ -147,55 +170,6 @@ export default {
       }
     },
 
-    setSelected(card) {
-      for (let key in card) {
-        // console.log(key, card);
-        // console.log(this.selectedCards[0].card);
-        // console.log(this.selectedCards[1].card);
-
-        if (
-          this.selectedCards[0].card != undefined &&
-          this.selectedCards[1].card == undefined
-        ) {
-          this.selectedCards[1][key] = card[key];
-        }
-
-        this.selectedCards[0][key] = card[key];
-
-        /* 
-        if (this.selectedCards[0].length !== 0) {
-          this.selectedCards[0][key] = card[key];
-        } else {
-          this.selectedCards[1][key] = card[key];
-        } */
-
-        // this.selectedCards[0][key] = card[key];
-
-        this.$forceUpdate();
-      }
-    },
-
-    setHole(textContent) {
-      textContent = textContent.trim();
-
-      if (this.holeCards.length >= 2) {
-        console.log(this.holeCards);
-        console.log("adding to villain's cards here...");
-        this.setVillainHole(textContent);
-      }
-
-      if (!this.holeCards.includes(textContent) && this.holeCards.length <= 1) {
-        console.log("push to arr");
-        this.holeCards.push(textContent);
-      } else if (this.holeCards.length <= 1) {
-        console.log("pop if 1");
-        this.holeCards.pop();
-      } else {
-        let filtered = this.holeCards.filter((el) => el != textContent);
-        console.log(filtered);
-        this.holeCards = filtered;
-      }
-    },
 
     pushToCommunityCards(textContent) {
       console.log(this.communityCards);
@@ -250,19 +224,58 @@ export default {
         this.villainCards = filtered;
       }
     },
-  },
-  computed: {
-    getSelected() {
-      return this.selectedCards;
+    ///////////////
+
+    setHero(cardArray){
+      this.heroC = cardArray
     },
-    getHoleCards() {
-      return this.holeCards;
+
+    setVill(cardArray){
+      this.villC = cardArray
     },
+
+    setBoard(cardArray){
+      this.boardC = cardArray
+    },
+
+
+    generateRandomAndSplice (num = 2,) {
+
+      let cleanStapel = this.aktuellerStapel
+
+      num = Math.min(num, cleanStapel.length);
+
+
+      let leeresArr = [];
+
+      while (leeresArr.length < num) {
+        let rndNum = ~~(Math.random() * cleanStapel.length);
+
+        leeresArr.push(cleanStapel.splice(rndNum, 1)[0]);
+      }
+
+      return leeresArr; 
+    },
+  
+ 
+},  computed: {
+
     aktuellerStapel : function() {
-      return this.kartenstapel.forEach((karte) => console.log(karte))
-    }
+      let bereinigt = this.kartenstapel.filter((karte) => {
+        return !this.heroC.some((heroKarte)=> heroKarte == karte)
+      })
+      bereinigt = bereinigt.filter((karte) => {
+        return !this.villC.some((villKarte)=> villKarte == karte)
+      })
+      bereinigt = bereinigt.filter((karte) => {
+        return !this.boardC.some((boardKarte)=> boardKarte == karte)
+      })
+      return bereinigt
+    },
+
+
   },
-};
+}
 </script>
 
 <style scoped>

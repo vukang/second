@@ -4,12 +4,15 @@
       Instructions: 1) Pick Hero cards 2) Pick villain cards 3) Pick at least 3
       board cards
     </div>
-    <Villain-panel :villainC="villainC" :results="results"></Villain-panel>
-    <Board :community="dataCommunityCards"></Board>
+    <Villain-panel :villainC="villainC" :results="results" :resetV="resetV" :setVill="setVill" :rndCards="genRndNSplice"></Villain-panel>
+    <Board :community="dataCommunityCards" :resetB="resetB" :setBoard="setBoard" :rndCards="genRndNSplice"></Board>
     <PlayerPanel
       :data="heroC"
       :sendFunktion="sendFunktion"
       :results="results"
+      :resetH="resetH"
+      :rndCards="genRndNSplice"
+      :setHero="setHero"
     ></PlayerPanel>
     
   </div>
@@ -22,13 +25,18 @@ import VillainPanel from "./VillainPanel.vue";
 
 export default {
   props: [
-    "selected",
-    "getHole",
     "heroC",
     "dataCommunityCards",
     "sendFunktion",
     "results",
     "villainC",
+    "resetB",
+    "resetH",
+    "resetV",
+    "genRndNSplice",
+    "setHero",
+    "setVill",
+    "setBoard"
   ],
   components: {
     Board,
