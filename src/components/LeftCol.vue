@@ -3,6 +3,9 @@
     Pick your cards...
     <div class="columnCardContainer">
       <CardsCol 
+      :heroC="heroC"
+      :villC="villC"
+      :boardC="boardC"
       :setH="setH"
       :setC="setC" 
       :setV="setV" 
@@ -20,7 +23,7 @@
 <script>
 import CardsCol from "./CardsCol.vue";
 export default {
-  props: ["setH", "setC", "setV", "resetAll", 'kopiereKarte', 'kartenstapel'],
+  props: [ "heroC" ,"villC" ,"boardC" ,"setH", "setC", "setV", "resetAll", 'kopiereKarte', 'kartenstapel'],
   components: {
     CardsCol,
   },

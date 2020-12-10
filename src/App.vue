@@ -2,6 +2,9 @@
   <div id="app">
     <div id="layout">
       <LeftCol 
+      :heroC="heroC"
+      :villC="villC"
+      :boardC="boardC"
       :setH="setHoleCards"
       :setC="setCommunityCards"
       :setV="setVillainCards"
@@ -75,7 +78,7 @@ export default {
       fetch(meinRequest)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           return (this.returnedData = data);
         });
     },
@@ -83,7 +86,7 @@ export default {
     kopiereKarte(karte, target, maxLength=2){
 
       if (this.heroC.includes(karte) || this.villC.includes(karte) || this.boardC.includes(karte) ) {
-        console.log(("DO NOT COPY CARD"))
+        console.error(("Can't copy card, because already in use!"))
         throw Error("Card already in use!")
       } else {
         if (this[target].length < maxLength)
@@ -109,17 +112,13 @@ export default {
 
     // reset&del methods
     resetAll() {
-      this.selectedCards= [{}, {}];
-      this.holeCards= [];
-      this.villainCards= [];
-      this.communityCards = [];
-
-
+      
       this.heroC= [];
       this.villC= [];
       this.boardC= [];
 
-      window.location.reload()
+      console.log("Resetted cards")
+      // window.location.reload()
     },
 
     resetHero(){

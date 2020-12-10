@@ -1,7 +1,7 @@
 <template>
   <div class="indivCards">
     <div class="cards" v-for="(card, index) in kartenstapel" :key="index">
-      <span class="indivCard">
+      <span class="indivCard" @click="copyFreiSlot(card)" >
         {{ card.value }}
 
       <div class="target" @click="(e) => {
@@ -29,13 +29,11 @@
 
 <script>
 export default {
-  props: ["setSelected", "setHole", "setH", "setC", "setV", 'resetAll', 'kopiereKarte', "kartenstapel", 'boardC'],
+  props: [ "heroC", "villC", "boardC", "setSelected", "setHole", "setH", "setC", "setV", 'resetAll', 'kopiereKarte', "kartenstapel"],
   data() {
     return {
       cards: "A23456789TJQK".split(""),
       suits: ["♣️", "♦️", "♥️", "♠️"],
-
-
     };
   },
   methods: {
@@ -53,6 +51,30 @@ export default {
 
     settingV(karte){
       this.setV(karte)
+    },
+
+    copyFreiSlot(card){
+      console.log(card.value)
+      console.log(this.heroC.length, "Hero#")
+      console.log(this.villC.length, "Vill#")
+      console.log(this.boardC.length, "Board#")
+
+      /* 
+        Push to correct player = With the lowest # of cards
+      */
+
+     if ( this.heroC.length == 2 && this.villC.length == 2) {
+       // push to boardC
+       this.kopiereKarte(card, "boardC", 5)
+     }
+
+     if (this.heroC.length < 2) {
+       this.kopiereKarte(card, "heroC", 2)
+     }
+
+     if (this.villC.length < 2) {
+       this.kopiereKarte(card, "villC", 2)
+     }
     },
 
     doStuffWhenClicked(karte) {
