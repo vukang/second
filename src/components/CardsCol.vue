@@ -12,7 +12,11 @@
           board: boardC.includes(card),
           vill: villC.includes(card),
         }"
-        @click="copyFreiSlot(card)"
+        @click="
+          (e) => {
+            copyFreiSlot(card);
+          }
+        "
       >
         {{ card.value }}
 
@@ -91,23 +95,26 @@ export default {
     },
 
     copyFreiSlot(card) {
+      console.log("in copyFreiSlot...");
       console.log(card.value);
-      console.log(this.heroC.length, "Hero#");
-      console.log(this.villC.length, "Vill#");
-      console.log(this.boardC.length, "Board#");
 
       if (this.heroC.length == 2 && this.villC.length == 2) {
         // push to boardC
         this.kopiereKarte(card, "boardC", 5);
+        console.log(this.boardC.length, "Board#");
       }
 
       if (this.heroC.length < 2) {
         this.kopiereKarte(card, "heroC", 2);
+        console.log(this.heroC.length, "Hero#");
       }
 
       if (this.villC.length < 2) {
         this.kopiereKarte(card, "villC", 2);
+        console.log(this.villC.length, "Vill#");
       }
+
+      console.log("...end");
     },
   },
 };

@@ -29,8 +29,6 @@
         :key2="Math.random()"
       />
     </div>
-
-    <!-- {{ generateRandomAndSplice()  }} -->
   </div>
 </template>
 
@@ -85,12 +83,31 @@ export default {
         this.villC.includes(karte) ||
         this.boardC.includes(karte)
       ) {
-        console.log("Can't copy card, because already in use!");
-        console.log("deleting instead...");
+        console.log("clicked!", karte.value, target);
+        // console.log("deleting instead...");
+        // this.deleteKarte(karte);
       } else {
         if (this[target].length < maxLength) {
           this[target].push(karte);
         }
+      }
+    },
+
+    deleteKarte(karte) {
+      console.log("Can't copy card - Deleting instead...");
+      console.log(karte.value);
+
+      if (this.heroC.includes(karte)) {
+        console.log("ist bei hero...");
+        this.heroC = this.heroC.filter((card) => karte != card);
+      }
+      if (this.villC.includes(karte)) {
+        console.log("ist bei vill...");
+        this.villC = this.villC.filter((card) => karte != card);
+      }
+      if (this.boardC.includes(karte)) {
+        console.log("ist bei board...");
+        this.boardC = this.boardC.filter((card) => karte != card);
       }
     },
 
@@ -182,59 +199,6 @@ export default {
       }
     },
 
-    pushToCommunityCards(textContent) {
-      console.log(this.communityCards);
-
-      console.log(this.communityCards.includes(textContent));
-
-      if (this.communityCards.includes(textContent)) {
-        console.log("need deletion!");
-        if (this.communityCards.length == 1) {
-          console.log("only one !");
-          return (this.communityCards.length = 0);
-        } else {
-          console.log("filtering the rest...");
-          let filtered = this.communityCards.filter((el) => el != textContent);
-          console.log(filtered);
-          this.communityCards = filtered;
-          console.log(this.communityCards);
-
-          return (this.communityCards = filtered);
-        }
-      }
-
-      if (
-        this.communityCards.length < 5 &&
-        !this.communityCards.includes(textContent)
-      ) {
-        this.communityCards.push(textContent);
-      }
-    },
-
-    setVillainHole(textContent) {
-      textContent = textContent.trim();
-
-      if (this.villainCards.length >= 2) {
-        console.log(this.villainCards);
-        console.log("adding to community cards here...");
-        this.pushToCommunityCards(textContent);
-      }
-
-      if (
-        !this.villainCards.includes(textContent) &&
-        this.villainCards.length <= 1
-      ) {
-        console.log("push to arr");
-        this.villainCards.push(textContent);
-      } else if (this.villainCards.length <= 1) {
-        console.log("pop if 1");
-        this.villainCards.pop();
-      } else {
-        let filtered = this.villainCards.filter((el) => el != textContent);
-        console.log(filtered);
-        this.villainCards = filtered;
-      }
-    },
     ///////////////
 
     setHero(cardArray) {

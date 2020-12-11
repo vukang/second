@@ -11,8 +11,18 @@
     <div id="results" v-for="(dat, index) in data" :key="index">
       {{ dat.value }}
     </div>
-    <div class="stats">Win: {{ resHero }} {{ entpackt }}</div>
+    <div class="stats">Win: {{ resHero }}</div>
     <button @click="sendFunktion">Calculate (send to node)</button>
+    <div
+      class="errorMsgs"
+      v-for="(msg, index) in entpackt"
+      :key="index"
+      :class="{
+        errNr: index == 0,
+      }"
+    >
+      {{ msg }}
+    </div>
   </div>
 </template>
 
@@ -37,12 +47,13 @@ export default {
     },
 
     entpackeResults() {
-      console.log(this.results);
-      console.log(this.results.status);
-
       if (this.results.status == "error") {
         console.log("error results...");
         console.log(this.results.messages);
+
+        if (this.results.messages.includes("Hero")) {
+          console.log("4 hero!");
+        }
       }
 
       return this.results.messages;
@@ -63,6 +74,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.errNr {
+  padding-top: 30px;
+  margin-top: 10px;
 }
 
 #rndBtn {
